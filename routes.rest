@@ -6,3 +6,18 @@ GET https://localhost:3000/ HTTP/1.1
 
 ### get all students
 GET https://localhost:3000/students HTTP/1.1
+
+### get one student
+GET http://localhost:3000/students/697c1570709940d478bab1e2 HTTP/1.1
+
+### create a student
+POST http://localhost:3000/students HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstName": "Kyle",
+    "lastName": "Barnes",
+    "email": "kbarnes@gmail.com",
+    "age": 14,
+    "currentCollege": "The Grand Noble Academy"
+}

@@ -38,4 +38,33 @@ const getSingleStudent = async (req, res) => {
   }
 };
 
+const createStudent = async (req, res) => {
+  try {
+    const student = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      age: req.body.age,
+      currentCollege: req.body.currentCollege,
+    };
+
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection("students")
+      .insertOne(student);
+    if (response.acknowledged) {
+      res.status(201).json(response);
+    } else {
+      res
+        .status(500)
+        .json(
+          response.error || "Some error occured while creating the student.",
+        );
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = { awesomeFunction, tooeleTechFunction, getAllStudents };
