@@ -5,7 +5,7 @@ const StudentController = require("../controllers/index");
 
 router.get("/", StudentController.getAllStudents);
 
-router.get("/:id", StudentController.getSingleSudent);
+router.get("/:id", StudentController.getSingleStudent);
 
 router.post("/", StudentController.createStudent);
 
