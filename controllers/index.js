@@ -67,4 +67,65 @@ const createStudent = async (req, res) => {
   }
 };
 
-module.exports = { awesomeFunction, tooeleTechFunction, getAllStudents };
+const updateStudent = async (req, res) => {
+  try {
+    const userId = new ObjectId(req.params.id);
+    const student = {
+      firsName: req.body.firsName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      age: req.body.age,
+      currentCollege: req.body.currentCollege,
+    };
+
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection("students")
+      .replaceOne({ _id: userId }, student);
+    if (response.acknowledged) {
+      res.status(204).json(response);
+    } else {
+      res
+        .status(500)
+        .json(
+          response.error || "Some error occured while updating the student.",
+        );
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const deleteStudent = async (req, res) => {
+  try {
+    const userId = new ObjectId(req, params.id);
+    const response = await mongodb
+      .getDb()
+      .db()
+      .collection("students")
+      .deleteOne({ _id: userId }, true);
+    console.log(response);
+    if (response.acknowledged) {
+      res.status(200).send(response);
+    } else {
+      res
+        .status(500)
+        .json(
+          response.error || "Some error occurred while deleting the student.",
+        );
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+module.exports = {
+  awesomeFunction,
+  tooeleTechFunction,
+  getAllStudents,
+  getSingleStudent,
+  createStudent,
+  updateStudent,
+  deleteStudent,
+};
